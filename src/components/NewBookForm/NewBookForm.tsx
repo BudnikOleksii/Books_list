@@ -16,7 +16,7 @@ const defaultBook = {
   ISBN: 0,
 };
 
-const categories = ['Novel', 'Fantasy', 'History', 'Romance', 'Comics'];
+const categories = ['Novel', 'Fantasy', 'History', 'Romance', 'Comics', 'Biographies', 'Business', 'Technology', 'Cookbooks', 'Travel'];
 
 export const NewBookForm: FC = () => {
   const { books, setBooks } = useContext(BooksContext);

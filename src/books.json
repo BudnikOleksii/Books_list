@@ -36,11 +36,39 @@
       "ISBN": "0446385050"
     },
     {
-      "title": "sgsg",
-      "author": "sgsg",
-      "category": "History",
-      "ISBN": 2,
-      "id": "JKadMkL"
+      "id": "6",
+      "title": "Into the Wild",
+      "author": "Jon Krakauer",
+      "category": "Biographies",
+      "ISBN": "0307387178"
+    },
+    {
+      "id": "7",
+      "title": "The Richest Man in Babylon",
+      "author": "George S. Clason",
+      "category": "Business",
+      "ISBN": "0451205367"
+    },
+    {
+      "id": "8",
+      "title": "Steve Jobs",
+      "author": "Walter Isaacson",
+      "category": "Technology",
+      "ISBN": "1501127624"
+    },
+    {
+      "id": "9",
+      "title": "Dinner in One: Exceptional",
+      "author": "Melissa Clark",
+      "category": "Cookbooks",
+      "ISBN": "0593233255"
+    },
+    {
+      "id": "10",
+      "title": "A Sand County",
+      "author": "Aldo Leopold",
+      "category": "Travel",
+      "ISBN": "0195007778"
     }
   ]
 }
