@@ -21,7 +21,7 @@ npm install -g json-server
 ```bash 
 json-server -p 4000 src/books.json
 ```
-6. Open one more terminal and run project by command:
+6. Open one more terminal in the directory with Books_list app and run project by command:
 ```bash 
 npm start
 ```
