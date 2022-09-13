@@ -2,7 +2,7 @@
 import {
   FC, FormEvent, useContext, useState,
 } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BooksContext } from '../BooksContext';
 import './NewBookForm.scss';
 import { addBook, editBookById } from '../../api';
@@ -104,7 +104,15 @@ export const NewBookForm: FC = () => {
 
   return (
     <form className="form" onSubmit={handleSubmit}>
+      <Link
+        className="button is-primary is-rounded m-2"
+        to="/"
+      >
+        Return to dashboard
+      </Link>
+
       {isLoading && (<Loader />)}
+
       {errorMessage && (
         <div className="notification  is-danger">
           {errorMessage}
