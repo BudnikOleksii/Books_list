@@ -8,6 +8,7 @@ import './NewBookForm.scss';
 import { addBook, editBookById } from '../../api';
 import { Loader } from '../Loader';
 import { Book } from '../../types/Book';
+import classNames from 'classnames';
 
 const defaultBook = {
   title: '',
@@ -26,29 +27,18 @@ export const NewBookForm: FC = () => {
     ? books.find(book => String(book.id) === bookId) || defaultBook
     : defaultBook;
 
+  const navigate = useNavigate();
   const [newBook, setNewBook] = useState(bookState);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const navigate = useNavigate();
-
-  const handleNewBookData = (field: string, value: string | number) => {
-    setErrorMessage('');
-    setNewBook(prevState => ({
-      ...prevState,
-      [field]: value,
-    }));
-  };
+  const [isTitleValid, setIsTitleValid] = useState(true);
+  const [isAuthorValid, setIsAuthorValid] = useState(true);
+  const [isISBNValid, setIsISBNValid] = useState(true);
 
   const isValidTextInput = (value: string) => {
-    if (/[^a-zA-Z ]/g.test(value)) {
-      setErrorMessage('Input text field should contain only letters and spaces');
-
-      return false;
-    }
-
-    if (value.length < 4) {
-      setErrorMessage('Input text field should contain more than 4 letters');
+    if (/[^a-zA-Z ]/g.test(value) || value.length < 4) {
+      setErrorMessage('Input text field should contain only letters and spaces and more than 4 letters, ISBN should be valid number');
 
       return false;
     }
@@ -56,8 +46,36 @@ export const NewBookForm: FC = () => {
     return true;
   };
 
+  const handleNewBookData = (field: string, value: string | number) => {
+    setIsTitleValid(true);
+    setIsAuthorValid(true);
+    setIsISBNValid(true);
+    setErrorMessage('');
+
+    setNewBook(prevState => ({
+      ...prevState,
+      [field]: value,
+    }));
+  };
+
   const isValidForm = () => {
-    return isValidTextInput(newBook.title) && isValidTextInput(newBook.author);
+    const isValidTitle = isValidTextInput(newBook.title);
+    const isValidAuthor = isValidTextInput(newBook.author);
+    const isValidISBN = newBook.ISBN > 0;
+
+    if (!isValidTitle) {
+      setIsTitleValid(false);
+    }
+
+    if (!isValidAuthor) {
+      setIsAuthorValid(false);
+    }
+
+    if (!isValidISBN) {
+      setIsISBNValid(false);
+    }
+
+    return isValidTitle && isValidAuthor && isValidISBN;
   };
 
   const handleSubmit = (event: FormEvent) => {
@@ -132,7 +150,9 @@ export const NewBookForm: FC = () => {
           placeholder="Title"
           value={newBook.title}
           onChange={(event) => handleNewBookData('title', event.target.value)}
-          className="input"
+          className={classNames('input', {
+            'is-danger has-text-danger': !isTitleValid,
+          })}
           required
         />
       </label>
@@ -144,7 +164,9 @@ export const NewBookForm: FC = () => {
           placeholder="Author"
           value={newBook.author}
           onChange={(event) => handleNewBookData('author', event.target.value)}
-          className="input"
+          className={classNames('input', {
+            'is-danger has-text-danger': !isAuthorValid,
+          })}
           required
         />
       </label>
@@ -172,8 +194,9 @@ export const NewBookForm: FC = () => {
           placeholder="ISBN"
           value={newBook.ISBN}
           onChange={(event) => handleNewBookData('ISBN', Number(event.target.value))}
-          min="0"
-          className="input"
+          className={classNames('input', {
+            'is-danger has-text-danger': !isISBNValid,
+          })}
           required
         />
       </label>
